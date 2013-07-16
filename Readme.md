@@ -1,6 +1,10 @@
-# Docker + Strider = winning
+# [Docker](http://docker.io) + [Strider](http://stridercd.com) = winning
 
 [In the Docker Index](https://index.docker.io/u/jaredly/strider/)
+
+-
+
+![Strider Screenshot](http://unworkable.org/~niallo/strider3.png)
 
 ## Install the image
 
