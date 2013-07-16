@@ -1,5 +1,7 @@
 # Docker + Strider = winning
 
+[In the Docker Index](https://index.docker.io/u/jaredly/strider/)
+
 ## Install the image
 
 #### Pre-built
