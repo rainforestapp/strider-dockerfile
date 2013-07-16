@@ -1,6 +1,6 @@
 # DOCKER-VERSION 0.4.8
 
-from  base:ubuntu-quantal
+from  ubuntu:12.10
 maintainer  Jared Forsyth <jared@jaredforsyth.com>
 
 run  echo "deb http://archive.ubuntu.com/ubuntu quantal main universe" > /etc/apt/sources.list
@@ -43,7 +43,7 @@ run  ln -s /bin/true /sbin/initctl
 
 #  mongodb repos
 run  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/10gen.list
-run  apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+run  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
 run  apt-get update
 run  apt-get install mongodb-10gen -y
 

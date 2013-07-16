@@ -15,7 +15,7 @@ cmd  ["/usr/bin/supervisord", "-n"]
 run  echo 'root:str!der' | chpasswd
 
 # Create an admin user
-run  /usr/bin/mongod --smallfiles --fork --logpath ./mongo.log && /src/bin/strider addUser --email test@example.com --password dontlook --admin true
+run  /usr/bin/mongod --smallfiles --fork --logpath ./mongo.log; sleep 2; /src/bin/strider addUser --email test@example.com --password dontlook --admin true
 
 add  supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
