@@ -1,9 +1,9 @@
 # DOCKER-VERSION 0.4.8
 
-from  base
+from  base:ubuntu-quantal
 maintainer  Jared Forsyth <jared@jaredforsyth.com>
 
-run  echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+run  echo "deb http://archive.ubuntu.com/ubuntu quantal main universe" > /etc/apt/sources.list
 run  apt-get update
 run  apt-get upgrade -y
 
@@ -12,16 +12,16 @@ run  apt-get install -y curl wget
 run  apt-get install supervisor -y
 run  apt-get install openssh-server -y
 
-# python
-run  apt-get install python -y
-run  apt-get install python-dev -y
-
 # get make, g++, etc
 run  apt-get install make -y
 run  apt-get install build-essential -y
 
 # libssl
 run  apt-get install libssl-dev -y
+
+# python
+run  apt-get install python -y
+run  apt-get install python-dev -y
 
 # set up directories
 run  mkdir -p /data/db

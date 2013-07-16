@@ -1,6 +1,14 @@
 
-all:
-	docker -t jaredly/strider:preclone - < Dockerfile.preclone
-	docker -t jaredly/strider:base - < Dockerfile.base
-	docker -t jaredly/strider:mongo - < Dockerfile.mongo
-	docker -t jaredly/strider .
+all: preclone base mongo demo
+
+preclone:
+	docker build -t jaredly/strider:preclone - < Dockerfile.preclone
+
+base:
+	docker build -t jaredly/strider:base - < Dockerfile.base
+
+mongo:
+	docker build -t jaredly/strider:mongo - < Dockerfile.mongo
+
+demo:
+	docker build -t jaredly/strider .
