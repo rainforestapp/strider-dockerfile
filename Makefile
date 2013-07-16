@@ -14,3 +14,7 @@ base:
 
 demo:
 	docker build -t jaredly/strider .
+
+# make sure the user did get added to the image
+test:
+	docker run jaredly/strider bash -c '/usr/bin/mongod --smallfiles --fork --logpath mongo.log; sleep 2; echo "db.users.find()" | mongo localhost/strider-foss'
