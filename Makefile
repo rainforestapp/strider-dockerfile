@@ -1,4 +1,9 @@
 
+default:
+	@echo "choose a target"
+
+clone: base mongo demo
+
 all: preclone base mongo demo
 
 preclone:

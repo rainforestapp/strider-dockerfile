@@ -1,7 +1,6 @@
 # DOCKER-VERSION 0.4.8
 
-from jaredly/strider:mongo
-# or jaredly/strider:base if you don't want local mongo
+from jaredly/strider:base
 
 # You can install your custom plugins here; such as:
 # run  cd /src; npm install https://github.com/jaredly/strider-travis.git
@@ -14,6 +13,9 @@ cmd  ["/usr/bin/supervisord", "-n"]
 
 # Set your default root password
 run  echo 'root:str!der' | chpasswd
+
+# Create an admin user
+run  /usr/bin/mongod --smallfiles --fork --logpath ./mongo.log && /src/bin/strider addUser --email test@example.com --password dontlook --admin true
 
 add  supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 

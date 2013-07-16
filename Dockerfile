@@ -1,6 +1,6 @@
 # DOCKER-VERSION 0.4.8
 
-from  jaredly/strider:mongo
+from  jaredly/strider:base
 
 # 27017 is your local mongodb instance
 # 22 is ssh server
@@ -12,7 +12,7 @@ expose  27017 22 3000
 cmd  ["/usr/bin/supervisord", "-n"]
 
 # Add an admin user
-run  /src/bin/strider addUser --email test@example.com --password dontlook --admin true
+run  /usr/bin/mongod --smallfiles --fork --logpath ./mongo.log && /src/bin/strider addUser --email test@example.com --password dontlook --admin true
 
 # Root password
 run  echo 'root:str!der' | chpasswd
