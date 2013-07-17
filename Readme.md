@@ -1,12 +1,10 @@
+[![Strider logo](http://stridercd.com/img/logo.png)](http://stridercd.com)
+
 # [Docker](http://docker.io) + [Strider](http://stridercd.com) = winning
 
 [In the Docker Index](https://index.docker.io/u/strider/strider/)
 
--
-
-![Strider Screenshot](http://unworkable.org/~niallo/strider3.png)
-
-## Install the image
+# 1. Install the image
 
 #### Pre-built
 
@@ -15,6 +13,10 @@ docker pull strider/strider
 ```
 
 #### OR roll your own
+This could take several minutes ... it does have to setup a whole new environment
+including installing several packages. If you just want to change some of the ways
+things are configured, jump down to [roll your own](#roll-your-own); you can still
+take advantage of several of the prebuilt docker images, saving you lots of time.
 
 ```bash
 git clone https://github.com/Strider-CD/strider-dockerfile.git
@@ -22,7 +24,7 @@ cd strider-docfile
 make all
 ```
 
-## Start it up
+# 2. Start it up
 
 If you rolled your own, use `my/strider` (or whatever tag you chose) in place
 of `strider/strider`.
@@ -44,7 +46,7 @@ CID=$(docker run -d strider/strider)
 
 You can see what the assigned ports are by running `docker ps`.
 
-## Enjoy your fully self-contained strider install!
+# 3. Enjoy your fully self-contained strider install!
 
 ```bash
 google-chrome http://localhost:$(docker port $CID 3000)
@@ -105,7 +107,7 @@ cd custom
 docker build -t my/strider .
 ```
 
-### External MongoDB server
+### Example: External MongoDB server
 
 As an example of a custom strider build, check out the `nomongo` directory,
 which gives you a docker image without a local mongo database; instead you
@@ -119,6 +121,18 @@ and you're ready to build!
 cd nomongo
 docker build -t my/strider .
 ```
+
+### How does this work?
+
+- `strider/strider:preclone` contains all of the Ubuntu packages you need to run
+a CD server (things like `make`, `g++`, `mongodb`, `ssh-server`, etc.) preinstaled.
+- `strider/strider:base` just takes `preclone`, grabs the [Strider repo](https://github.com/Strider-CD/strider),
+and runs `npm install`.
+
+If you make your custom Docker image `from strider/strider:base` you don't have to
+go through installing all of the packages; it's just bundled for you. you can then
+do any setup and configuration you like by adding Docker commands and modifying the
+`supervisord.conf`.
 
 # Questions, thoughts, concerns
 
