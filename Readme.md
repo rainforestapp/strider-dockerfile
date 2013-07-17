@@ -1,6 +1,6 @@
 # [Docker](http://docker.io) + [Strider](http://stridercd.com) = winning
 
-[In the Docker Index](https://index.docker.io/u/jaredly/strider/)
+[In the Docker Index](https://index.docker.io/u/strider/strider/)
 
 -
 
@@ -11,13 +11,13 @@
 #### Pre-built
 
 ```bash
-docker pull jaredly/strider
+docker pull strider/strider
 ```
 
 #### OR roll your own
 
 ```bash
-git clone https://github.com/jaredly/strider-dockerfile.git
+git clone https://github.com/Strider-CD/strider-dockerfile.git
 cd strider-docfile
 make all
 ```
@@ -25,12 +25,12 @@ make all
 ## Start it up
 
 If you rolled your own, use `my/strider` (or whatever tag you chose) in place
-of `jaredly/strider`.
+of `strider/strider`.
 
 #### Manual port mapping
 
 ```bash
-CID=$(docker run -d -p 3000:3000 -p 27000:27017 -p 44:22 jaredly/strider)
+CID=$(docker run -d -p 3000:3000 -p 27000:27017 -p 44:22 strider/strider)
 ```
 
 So mongo is accessible on 27000, and you can ssh to port 44 on localhost.
@@ -39,7 +39,7 @@ Strider will be available on http://localhost:3000
 #### OR random port assignments
 
 ```bash
-CID=$(docker run -d jaredly/strider)
+CID=$(docker run -d strider/strider)
 ```
 
 You can see what the assigned ports are by running `docker ps`.
@@ -88,7 +88,7 @@ More info at http://supervisord.org/running.html#running-supervisorctl
 
 # Roll your own
 
-`jaredly/strider:base` gives you a great starting point with all of the
+`strider/strider:base` gives you a great starting point with all of the
 necessary packages for running strider, while also giving you the power to:
 
 - add custom strider extensions
@@ -102,6 +102,21 @@ and `custom/supervisord.conf` and build!
 
 ```bash
 cd custom
+docker build -t my/strider .
+```
+
+### External MongoDB server
+
+As an example of a custom strider build, check out the `nomongo` directory,
+which gives you a docker image without a local mongo database; instead you
+enter the mongouri as an ENV variable in `supervisord.conf`.
+
+Go ahead and set up a free database with [mongohq](http://mongohq.com) or
+[mongolab](http://mongolab.com), enter the `mongouri` into `supervisord.conf`
+and you're ready to build!
+
+```bash
+cd nomongo
 docker build -t my/strider .
 ```
 

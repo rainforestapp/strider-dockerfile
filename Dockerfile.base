@@ -1,6 +1,6 @@
 # DOCKER-VERSION 0.4.8
 
-from  jaredly/strider:preclone
+from  strider/strider:preclone
 maintainer  Jared Forsyth <jared@jaredforsyth.com>
 
 # grab strider

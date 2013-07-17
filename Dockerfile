@@ -1,6 +1,6 @@
 # DOCKER-VERSION 0.4.8
 
-from  jaredly/strider:base
+from  strider/strider:base
 
 # Root password
 run  echo 'root:str!der' | chpasswd
