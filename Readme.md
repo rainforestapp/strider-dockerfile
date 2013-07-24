@@ -87,7 +87,7 @@ strider, taking care of their logs, and restarting them if they crash.
 You can control supervisor with `supervisorctl`, which again would be through ssh
 
 ```bash
-ssh root@localhost -p $(docker port [containerid] 22) supervisorctl
+ssh root@localhost -p $(docker port $CID 22) supervisorctl
 ```
 
 More info at http://supervisord.org/running.html#running-supervisorctl
