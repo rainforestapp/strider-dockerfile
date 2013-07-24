@@ -6,49 +6,33 @@
 
 # 0. Install Docker
 
-In order to use `strider-dockerfile` we need to have Docker [installed on your machine](http://www.docker.io/gettingstarted/#anchor-0).
+In order to use `strider-dockerfile` you need to have Docker [installed on your machine](http://www.docker.io/gettingstarted/#anchor-0).
 
 # 1. Install the image
 
-#### Pre-built
+#### Pre-built (fastest)
 
 ```bash
 docker pull strider/strider
 ```
-
-#### OR roll your own
-This could take several minutes ... it does have to setup a whole new environment
-including installing several packages. If you just want to change some of the ways
-things are configured, jump down to [roll your own](#roll-your-own); you can still
-take advantage of several of the prebuilt docker images, saving you lots of time.
-
-```bash
-git clone https://github.com/Strider-CD/strider-dockerfile.git
-cd strider-docfile
-make all
-```
-
-# 2. Start it up
+# 2. Start it
 
 If you rolled your own, use `my/strider` (or whatever tag you chose) in place
 of `strider/strider`.
 
 #### Manual port mapping
 
-```bash
-CID=$(docker run -d -p 3000:3000 -p 27000:27017 -p 44:22 strider/strider)
-```
+By default, Docker does not map any ports inside the container to the public ports on the host machine. This means you won't be able to connect to the Strider instance outside the container. Fortunately, Docker provides a convenient port mapping option with `-p`.
 
-So mongo is accessible on 27000, and you can ssh to port 44 on localhost.
-Strider will be available on http://localhost:3000
-
-#### OR random port assignments
+To run Strider in Docker with the Strider webapp mapped to port 3000:
 
 ```bash
-CID=$(docker run -d strider/strider)
+CID=$(docker run -d -p 3000:3000)
 ```
 
-You can see what the assigned ports are by running `docker ps`.
+For debugging or configuration purposes, you may also like to map MongoDB and SSHd from inside the container. For example, use the following flags to have the internal MongoDB mapped to port 27000 and and the internal SSHd mapped to port 44:
+
+`-p 27000:27017 -p 44:22 strider/strider`
 
 # 3. Enjoy your fully self-contained strider install!
 
@@ -56,7 +40,7 @@ You can see what the assigned ports are by running `docker ps`.
 google-chrome http://localhost:$(docker port $CID 3000)
 ```
 
-# Security, etc.
+# Security
 
 ## Setup SSH keys
 
@@ -92,7 +76,20 @@ ssh root@localhost -p $(docker port $CID 22) supervisorctl
 
 More info at http://supervisord.org/running.html#running-supervisorctl
 
-# Roll your own
+# Build from scratch
+
+This could take several minutes since it has to setup a whole new environment
+including installing several packages. If you just want to change some of the ways
+things are configured, jump down to [roll your own](#roll-your-own); you can still
+take advantage of several of the prebuilt docker images, saving you lots of time.
+
+```bash
+git clone https://github.com/Strider-CD/strider-dockerfile.git
+cd strider-dockerfile
+make all
+```
+
+### Shortcut with 'strider:base'
 
 `strider/strider:base` gives you a great starting point with all of the
 necessary packages for running strider, while also giving you the power to:
@@ -103,7 +100,7 @@ necessary packages for running strider, while also giving you the power to:
 - set ENV variables for strider
 - do whatever you want, really.
 
-Just grab this repo, make whatever changes you like to the `custom/Dockerfile`,
+Just clone the `strider-dockerfile` repo, make whatever changes you like to the `custom/Dockerfile`,
 and `custom/supervisord.conf` and build!
 
 ```bash
@@ -129,7 +126,7 @@ docker build -t my/strider .
 ### How does this work?
 
 - `strider/strider:preclone` contains all of the Ubuntu packages you need to run
-a CD server (things like `make`, `g++`, `mongodb`, `ssh-server`, etc.) preinstaled.
+a CD server (things like `make`, `g++`, `mongodb`, `ssh-server`, etc.) preinstalled.
 - `strider/strider:base` just takes `preclone`, grabs the [Strider repo](https://github.com/Strider-CD/strider),
 and runs `npm install`.
 
