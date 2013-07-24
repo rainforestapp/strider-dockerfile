@@ -4,6 +4,10 @@
 
 [In the Docker Index](https://index.docker.io/u/strider/strider/)
 
+# 0. Install Docker
+
+In order to use `strider-dockerfile` we need to have Docker [installed on your machine](http://www.docker.io/gettingstarted/#anchor-0).
+
 # 1. Install the image
 
 #### Pre-built
