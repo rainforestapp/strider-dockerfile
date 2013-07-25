@@ -6,6 +6,15 @@ clone: base demo
 
 all: preclone base demo
 
+# workaround for docker push bug. Can't push multiple things that depend on each other at the same time
+push-clone:
+	docker tag strider/strider:latest save/me latest
+	docker rmi strider/strider:latest
+	docker push strider/strider
+	docker tag save/me:latest strider/strider latest
+	docker rmi save/me:latest
+	docker push strider/strider
+
 preclone:
 	docker build -t strider/strider:preclone - < Dockerfile.preclone
 
