@@ -34,7 +34,7 @@ run  apt-get install git -y
 
 # install node
 run  curl https://raw.github.com/isaacs/nave/master/nave.sh > /bin/nave && chmod a+x /bin/nave
-run  nave usemain 0.8
+run  nave usemain stable
 
 # divert upstart (required for mongo to work)
 # from https://www.nesono.com/node/368
