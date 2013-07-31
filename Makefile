@@ -15,6 +15,14 @@ push-clone:
 	docker rmi save/me:latest
 	docker push strider/strider
 
+push-preclone:
+	#docker tag strider/strider:base save/me base
+	#docker rmi strider/strider:base
+	make push-clone
+	docker tag save/me:base strider/strider base
+	docker rmi save/me:base
+
+
 preclone:
 	docker build -t strider/strider:preclone - < Dockerfile.preclone
 
