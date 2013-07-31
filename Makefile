@@ -2,9 +2,9 @@
 default:
 	@echo "make clone if you just want to update for a new version of strider; `make all` if you want to rebuild from scratch"
 
-clone: base demo
+clone: base demo test-strider
 
-all: preclone base demo
+all: preclone clone
 
 # workaround for docker push bug. Can't push multiple things that depend on each other at the same time
 push-clone:
@@ -36,6 +36,8 @@ vagrant:
 	docker run -p 3000:3000 -p 27000:27012 -p 44:22 -d strider/strider 
 
 # make sure the user did get added to the image
-test:
-	docker run jaredly/strider bash -c '/usr/bin/mongod --smallfiles --fork --logpath mongo.log; sleep 2; echo "db.users.find()" | mongo localhost/strider-foss'
+test-useradd:
+	docker run strider/strider bash -c '/usr/bin/mongod --smallfiles --fork --logpath mongo.log; sleep 2; echo "db.users.find()" | mongo localhost/strider-foss'
 
+test-strider:
+	docker run strider/strider bash -c '/usr/bin/mongod --smallfiles --fork --logpath mongo.log; sleep 2; cd /src; npm test'
