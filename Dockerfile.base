@@ -6,8 +6,8 @@ maintainer  Jared Forsyth <jared@jaredforsyth.com>
 # grab strider
 run  git clone https://github.com/Strider-CD/strider.git /src
 
-# update to Strider Version 1.3.2
-run  cd /src && git pull && git reset --hard 1.3.2
+# update to Strider Version 1.3.3
+run  cd /src && git pull && git reset --hard 1.3.3
 
 # Install app dependencies
 run  cd /src; npm install
