@@ -27,7 +27,7 @@ By default, Docker does not map any ports inside the container to the public por
 To run Strider in Docker with the Strider webapp mapped to port 3000:
 
 ```bash
-CID=$(docker run -d -p 3000:3000)
+CID=$(docker run -d -p 3000:3000 strider/strider)
 ```
 
 For debugging or configuration purposes, you may also like to map MongoDB and SSHd from inside the container. For example, use the following flags to have the internal MongoDB mapped to port 27000 and and the internal SSHd mapped to port 44:
