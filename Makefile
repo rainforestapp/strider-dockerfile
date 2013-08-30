@@ -37,7 +37,7 @@ vagrant:
 
 # make sure the user did get added to the image
 test-useradd:
-	docker run strider/strider bash -c '/usr/bin/mongod --smallfiles --fork --logpath mongo.log; sleep 2; echo "db.users.find()" | mongo localhost/strider-foss'
+	docker run strider/strider bash -c '/usr/bin/mongod --smallfiles --fork --logpath mongo.log > /dev/null; sleep 2; echo "db.users.find()" | mongo localhost/strider-foss | grep test@example.com'
 
 test-strider:
 	docker run strider/strider bash -c '/usr/bin/mongod --smallfiles --fork --logpath mongo.log; sleep 2; cd /src; npm test'
