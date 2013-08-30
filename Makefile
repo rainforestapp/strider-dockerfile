@@ -2,7 +2,7 @@
 default:
 	@echo "make clone if you just want to update for a new version of strider; `make all` if you want to rebuild from scratch"
 
-clone: base demo test-strider
+clone: base demo test-strider test-useradd
 
 all: preclone clone
 
