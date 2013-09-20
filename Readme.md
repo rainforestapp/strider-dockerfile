@@ -13,7 +13,7 @@ In order to use `strider-dockerfile` you need to have Docker [installed on your 
 #### Pre-built (fastest)
 
 ```bash
-docker pull strider/strider
+sudo docker pull strider/strider:latest
 ```
 # 2. Start it
 
@@ -27,7 +27,7 @@ By default, Docker does not map any ports inside the container to the public por
 To run Strider in Docker with the Strider webapp mapped to port 3000:
 
 ```bash
-CID=$(docker run -d -p 3000:3000 strider/strider)
+CID=$(sudo docker run -d -p 3000:3000 strider/strider)
 ```
 
 For debugging or configuration purposes, you may also like to map MongoDB and SSHd from inside the container. For example, use the following flags to have the internal MongoDB mapped to port 27000 and and the internal SSHd mapped to port 44:
@@ -37,7 +37,7 @@ For debugging or configuration purposes, you may also like to map MongoDB and SS
 # 3. Enjoy your fully self-contained strider install!
 
 ```bash
-google-chrome http://localhost:$(docker port $CID 3000)
+google-chrome http://localhost:$(sudo docker port $CID 3000)
 ```
 
 # Security
@@ -49,13 +49,13 @@ an ssh key already. If not, run `ssh-keygen`. Github has a pretty good how-to
 for ssh keys [here](https://help.github.com/articles/generating-ssh-keys).
 
 ```bash
-ssh-copy-id "root@localhost -p $(docker port $CID 22)"
+ssh-copy-id "root@localhost -p $(sudo docker port $CID 22)"
 ```
 
 ## Change the root password
 
 ```bash
-ssh root@localhost -p $(docker port $CID 22) passwd
+ssh root@localhost -p $(sudo docker port $CID 22) passwd
 ```
 
 ## Logs
@@ -71,7 +71,7 @@ strider, taking care of their logs, and restarting them if they crash.
 You can control supervisor with `supervisorctl`, which again would be through ssh
 
 ```bash
-ssh root@localhost -p $(docker port $CID 22) supervisorctl
+ssh root@localhost -p $(sudo docker port $CID 22) supervisorctl
 ```
 
 More info at http://supervisord.org/running.html#running-supervisorctl
